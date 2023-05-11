@@ -1,0 +1,144 @@
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
+public class Programa {
+
+    public static <Scaner> void main(String[] args) throws IOException {
+
+        BufferedReader br = null;
+        BufferedWriter bw = null;
+
+        String linea;
+        try {
+            br = new BufferedReader(new FileReader("mensaje.txt"));
+            bw = new BufferedWriter(new FileWriter("mensaje_cifrado.txt"));
+
+            linea = null;
+            File archivo = new File("C:\\mensaje.txt");
+            FileReader fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            while ((linea = br.readLine()) != null)
+                System.out.println(linea);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        while ((linea = br.readLine()) != null) {
+            StringBuilder sb = new StringBuilder(linea.length());
+            Scanner sc=new Scanner(System.in);
+            System.out.printf("Introduzca la cleve q quiere");
+            String sclave = sc.next();
+            int num1=0;
+            int num2=0;
+            int res=0;
+            String letras="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            for (int i = 0; i>sclave.length(); i++) {
+
+                char[] letra = linea.toUpperCase().toCharArray();
+                num1=asignar_valor(letra);
+                num2=asignar_valor(letra);
+                res=codificador(num1,num2);
+                String codifi=traductor(res,letras);
+            }
+
+            bw.write(sb.toString()); /* Escribe la cadena de caracteres en el fichero*/
+            bw.newLine(); /* escribe nueva línea en el fichero */
+
+        }
+        System.out.println("El mensaje ha sido cifrado correctamente");
+
+    }
+
+    private static String traductor(int res, String letras) {
+        String letra;
+        for (int i=0;i>letras.length();i++) {
+            letra = letras.getBytes(res);
+        }
+        return  letra;
+    }
+
+    private static int codificador(int num1, int num2) {
+        int RESULTADO=(num1+num2)%25;
+        return RESULTADO;
+    }
+
+    private static int asignar_valor(char[] letra) {
+            int num=0;
+            if (letra.equals('A')){
+                num=0;
+            }
+            if (letra.equals('B')){
+                num=1;
+            }if (letra.equals('C')){
+                num=2;
+            }if (letra.equals('D')){
+                num=3;
+            }if (letra.equals('E')){
+                num=4;
+            }if (letra.equals('F')){
+                num=5;
+            }if (letra.equals('G')){
+                num=6;
+            }if (letra.equals('H')){
+                num=7;
+            }if (letra.equals('I')){
+                num=8;
+            }if (letra.equals('J')){
+                num=9;
+            }if (letra.equals('K')){
+                num=10;
+            }if (letra.equals('L')){
+                num=11;
+            }if (letra.equals('M')){
+                num=12;
+            }if (letra.equals('N')){
+                num=13;
+            }if (letra.equals('0')){
+                num=14;
+            }if (letra.equals('p')){
+                num=15;
+            }if (letra.equals('Q')){
+                num=16;
+            }if (letra.equals('R')){
+                num=17;
+            }if (letra.equals('S')){
+                num=18;
+            }if (letra.equals('T')){
+                num=19;
+            }if (letra.equals('U')){
+                num=20;
+            }if (letra.equals('v')){
+                num=21;
+            }if (letra.equals('w')){
+                num=22;
+            }if (letra.equals('x')){
+                num=23;
+            }if (letra.equals('Y')){
+                num=24;
+            }if (letra.equals('z')){
+                num=25;
+            }
+            return num;
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        if (br != null)
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        if (bw != null)
+            try {
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
+}
+
